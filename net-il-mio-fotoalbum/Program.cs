@@ -43,7 +43,7 @@ namespace net_il_mio_fotoalbum
             // rotta di defualt quando avviamo il server
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Photo}/{action=Index}/{id?}");
 
             app.MapRazorPages();
 
