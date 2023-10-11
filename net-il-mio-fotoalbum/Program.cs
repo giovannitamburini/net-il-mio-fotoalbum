@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using net_il_mio_fotoalbum.Database;
 namespace net_il_mio_fotoalbum
 {
     public class Program
@@ -5,6 +8,14 @@ namespace net_il_mio_fotoalbum
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            // devo eliminare la seguente riga (la commento)
+            //var connectionString = builder.Configuration.GetConnectionString("PhotoPortfolioContextConnection") ?? throw new InvalidOperationException("Connection string 'PhotoPortfolioContextConnection' not found.");
+
+            // modificato la riga per l'autenticazione/autorizzazione
+            builder.Services.AddDbContext<PhotoPortfolioContext>();
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+.AddEntityFrameworkStores<PhotoPortfolioContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -24,11 +35,17 @@ namespace net_il_mio_fotoalbum
 
             app.UseRouting();
 
+            // aggiunta per l'autenticazione
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
+            // rotta di defualt quando avviamo il server
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }
