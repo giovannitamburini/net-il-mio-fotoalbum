@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "Admin/_AdminLayout";
+}
+
+@model Photo
+
+<div class="container py-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-9">
+
+            <div>
+                <h1 class="text-capitalize my-3">dettagli foto</h1>
+            </div>
+
+            @* immagine *@
+            <div>
+                <img class="w-100" src="@Model.PathImage" />
+            </div>
+
+            @* titolo *@
+            <div class="pt-4 pb-2">
+                <span><strong>Titolo: </strong>@Model.Title</span>
+            </div>
+
+            @* descrizione *@
+            <div>
+                <p><strong>Descrizione: </strong>@Model.Description</p>
+            </div>
+
+        </div>
+    </div>
+</div>
