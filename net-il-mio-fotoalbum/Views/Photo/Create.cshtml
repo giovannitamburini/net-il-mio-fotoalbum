@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "Admin/_AdminLayout";
+}
+
+@model Photo
+
+<div class="container py-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-9">
+
+            <div>
+                <h1 class="text-capitalize my-3">Pagina creazione nuova foto</h1>
+            </div>
+
+            <form asp-controller="Photo" asp-action="Create" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <strong>Titolo:</strong>
+                    <input type="text" class="form-control" asp-for="Title">
+                </div>
+                <div class="mb-3">
+                    <strong>Descrizione:</strong>
+                    <input type="text" class="form-control" asp-for="Description">
+                </div>
+                <div class="mb-3">
+                    <strong>Path immagine:</strong>
+                    <input type="text" class="form-control" asp-for="PathImage">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Crea nuova foto</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

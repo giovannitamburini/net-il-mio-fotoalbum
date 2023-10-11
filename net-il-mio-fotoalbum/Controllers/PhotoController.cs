@@ -16,7 +16,8 @@ namespace net_il_mio_fotoalbum.Controllers
 
                     return View("Index", photos);
 
-                }catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     return NotFound($"La lista delle foto è vuota \n" +
                         $"Messaggio d'errore: {ex.Message}");
@@ -38,6 +39,31 @@ namespace net_il_mio_fotoalbum.Controllers
                 {
                     return View("Details", foundedPhoto);
                 }
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View("Create");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Photo newPhoto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Create", newPhoto);
+            }
+
+            using(PhotoPortfolioContext db = new PhotoPortfolioContext())
+            {
+                db.Photos.Add(newPhoto);
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
         }
     }

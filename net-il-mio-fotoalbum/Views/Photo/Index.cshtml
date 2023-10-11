@@ -88,17 +88,16 @@ else
                     </tbody>
                 </table>
 
+
+                @* @if (User.IsInRole("ADMIN")){} *@
+
                 @* bottone per la create della foto *@
+                <div class="text-center py-3">
 
-                @* @if (User.IsInRole("ADMIN"))
-            {
-            <div class="text-center py-3">
-
-            <a class="btn btn-warning" href="@Url.Action("Create", "Photo")">
-            Aggiungi nuova foto
-            </a>
-            </div>
-            } *@
+                    <a class="btn btn-warning" href="@Url.Action("Create", "Photo")">
+                        Aggiungi nuova foto
+                    </a>
+                </div>
 
 
             </div>
