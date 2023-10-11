@@ -9,10 +9,10 @@
         <div class="col-9">
 
             <div>
-                <h1 class="text-capitalize my-3">Pagina creazione nuova foto</h1>
+                <h1 class="text-capitalize my-3">Pagina di modifica foto</h1>
             </div>
 
-            <form asp-controller="Photo" asp-action="Create" method="post">
+            <form asp-controller="Photo" asp-action="Update" method="post">
 
                 @Html.AntiForgeryToken()
 
@@ -32,7 +32,7 @@
                     <span asp-validation-for="PathImage" class="text-danger"></span>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Crea nuova foto</button>
+                <button type="submit" class="btn btn-primary">Salva modifiche</button>
 
             </form>
 

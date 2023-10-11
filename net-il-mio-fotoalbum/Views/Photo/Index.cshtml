@@ -47,7 +47,7 @@ else
 
                                         @* bottone per l'update *@
 
-                                        @* <a class="btn btn-warning" href="@Url.Action("Update", "Photo", new {id = photo.Id})"><i class="fa-solid fa-pencil"></i></a> *@
+                                        <a class="btn btn-warning" href="@Url.Action("Update", "Photo", new {id = photo.Id})"><i class="fa-solid fa-pencil"></i></a>
 
                                         @* Button per richiamare il modale *@
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@("#deleteModal" + photo.Id)">
