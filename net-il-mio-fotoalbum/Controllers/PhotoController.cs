@@ -113,9 +113,29 @@ namespace net_il_mio_fotoalbum.Controllers
                     return NotFound("Mi dispiace, la foto da aggiornare non è stata trovata");
                 }
             }
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            using(PhotoPortfolioContext db = new PhotoPortfolioContext())
+            {
+                Photo? photoToDelete = db.Photos.Where(photo => photo.Id == id).FirstOrDefault();
 
+                if(photoToDelete != null)
+                {
+                    db.Photos.Remove(photoToDelete);
 
+                    db.SaveChanges();
+
+                    return RedirectToAction("index");
+                }
+                else
+                {
+                    return NotFound("Mi dispiace ma l'articolo che vuoi eliminare non è stato trovato");
+                }
+            }
         }
     }
 }

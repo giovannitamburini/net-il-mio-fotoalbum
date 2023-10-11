@@ -69,10 +69,10 @@ else
 
                                                         @* bottone per l'eliminazione *@
 
-                                                        @* <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post">
-                                            @Html.AntiForgeryToken()
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form> *@
+                                                        <form asp-controller="Photo" asp-action="Delete" asp-route-id="@photo.Id" method="post">
+                                                            @Html.AntiForgeryToken()
+                                                            <button type="submit" class="btn btn-danger">Elimina</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
