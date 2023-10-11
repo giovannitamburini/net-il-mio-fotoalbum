@@ -8,8 +8,6 @@ namespace net_il_mio_fotoalbum
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            // devo eliminare la seguente riga (la commento)
-            //var connectionString = builder.Configuration.GetConnectionString("PhotoPortfolioContextConnection") ?? throw new InvalidOperationException("Connection string 'PhotoPortfolioContextConnection' not found.");
 
             // modificato la riga per l'autenticazione/autorizzazione
             builder.Services.AddDbContext<PhotoPortfolioContext>();
@@ -19,6 +17,9 @@ namespace net_il_mio_fotoalbum
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // dependency
+            builder.Services.AddScoped<PhotoPortfolioContext, PhotoPortfolioContext>();
 
             var app = builder.Build();
 
