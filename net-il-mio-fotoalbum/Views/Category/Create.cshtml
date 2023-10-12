@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "Admin/_AdminLayout";
+}
+
+@model Category
+
+
+<div class="container py-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-9">
+
+            <div>
+                <h1 class="text-capitalize my-3">Pagina di creazione nuova categoria</h1>
+            </div>
+
+            <form asp-controller="Category" asp-action="Create" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <strong>Titolo:</strong>
+                    <input type="text" class="form-control" asp-for="Title">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salva modifiche</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
