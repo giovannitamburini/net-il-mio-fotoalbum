@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using net_il_mio_fotoalbum.Database;
+using System.Text.Json.Serialization;
+
 namespace net_il_mio_fotoalbum
 {
     public class Program
@@ -17,7 +19,10 @@ namespace net_il_mio_fotoalbum
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // dependency
+            // codice di configurazione per il serializzatore JSON, in modo che ignori le dipendenze cicliche le eventuali relazioni 1:N o N:N presenti nel JSON risultante
+            builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+            // Dependency Injection
             builder.Services.AddScoped<PhotoPortfolioContext, PhotoPortfolioContext>();
 
             var app = builder.Build();

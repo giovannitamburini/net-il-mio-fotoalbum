@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace net_il_mio_fotoalbum.Models
 {
     public class Category
     {
+        [JsonIgnore]
         [Key]
         public int Id { get; set; }
 
@@ -12,6 +14,7 @@ namespace net_il_mio_fotoalbum.Models
         public string Title { get; set; }
 
         // relazione N:N con Photo
+        [JsonIgnore]
         public List<Photo>? Photos { get; set; }
 
         public Category() { }
