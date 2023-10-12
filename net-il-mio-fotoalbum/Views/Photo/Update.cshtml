@@ -32,6 +32,12 @@
                     <input type="text" class="form-control" asp-for="Photo.PathImage">
                     <span asp-validation-for="Photo.PathImage" class="text-danger"></span>
                 </div>
+                <div class="mb-3">
+                    <img src="@Model.Photo.ImageSrc" height="200">
+                    <label asp-for="ImageFormFile">Image file</label>
+                    <input type="file" asp-for="ImageFormFile" />
+                    <span asp-validation-for="ImageFormFile" class="text-error"></span>
+                </div>
 
                 <div class="mb-3">
                     <strong>Seleziona le categorie:</strong>

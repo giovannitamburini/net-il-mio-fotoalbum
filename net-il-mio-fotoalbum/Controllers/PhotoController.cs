@@ -154,6 +154,9 @@ namespace net_il_mio_fotoalbum.Controllers
                 }
             }
 
+            // richiamo il metodo per settare l'immagine
+            this.SetImageFile(data);
+
             _myDb.Photos.Add(data.Photo);
             _myDb.SaveChanges();
 
@@ -245,6 +248,13 @@ namespace net_il_mio_fotoalbum.Controllers
                     }
                 }
 
+                if (data.ImageFormFile != null)
+                {
+                    MemoryStream stream = new MemoryStream();
+                    data.ImageFormFile.CopyTo(stream);
+                    photoToUpdate.ImageFile = stream.ToArray();
+                }
+
                 _myDb.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -280,6 +290,22 @@ namespace net_il_mio_fotoalbum.Controllers
             {
                 return NotFound("Mi dispiace ma l'articolo che vuoi eliminare non è stato trovato");
             }
+        }
+
+
+        // -----------------------------------------------------
+        // -----------------------------------------------------
+
+        private void SetImageFile(PhotoFormModel formData)
+        {
+            if(formData.ImageFormFile == null)
+            {
+                return;
+            }
+
+            MemoryStream stream = new MemoryStream();
+            formData.ImageFormFile.CopyTo(stream);
+            formData.Photo.ImageFile = stream.ToArray();
         }
     }
 }

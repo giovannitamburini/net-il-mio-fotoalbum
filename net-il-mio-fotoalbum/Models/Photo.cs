@@ -23,7 +23,12 @@ namespace net_il_mio_fotoalbum.Models
         [StringLength(300, ErrorMessage ="Il path dell'immagine non può superare i 300 caratteri")]
         // custom validation
         [ValidFormatImage]
-        public string PathImage { get; set; }
+        public string? PathImage { get; set; }
+
+        public byte[]? ImageFile { get; set; }
+
+        public string ImageSrc => ImageFile is null ? (PathImage is null? "" : PathImage) : $"data:image/png;base64,{Convert.ToBase64String(ImageFile)}";
+
         public bool IsVisible { get; set; } = true;
 
         // relazione N:N con Category

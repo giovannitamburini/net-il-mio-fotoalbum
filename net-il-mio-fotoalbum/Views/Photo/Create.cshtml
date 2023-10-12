@@ -13,7 +13,7 @@
                 <h1 class="text-capitalize my-3">Pagina creazione nuova foto</h1>
             </div>
 
-            <form asp-controller="Photo" asp-action="Create" method="post">
+            <form asp-controller="Photo" asp-action="Create" enctype="multipart/form-data" method="post">
 
                 @Html.AntiForgeryToken()
 
@@ -31,6 +31,13 @@
                     <strong>Path immagine:</strong>
                     <input type="text" class="form-control" asp-for="Photo.PathImage">
                     <span asp-validation-for="Photo.PathImage" class="text-danger"></span>
+                </div>
+
+                @* caricamento file immagine *@
+                <div class="mb-3">
+                    <label asp-for="ImageFormFile">File Immagine:</label>
+                    <input type="file" asp-for="ImageFormFile" />
+                    <span asp-validation-for="ImageFormFile" class="text-error"></span>
                 </div>
 
                 <div class="mb-3">
