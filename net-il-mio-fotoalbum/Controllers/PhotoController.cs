@@ -116,8 +116,7 @@ namespace net_il_mio_fotoalbum.Controllers
         public IActionResult Update(int id)
         {
 
-
-            Photo? photoToEdit = _myDb.Photos.Where(photo => photo.Id == id).FirstOrDefault();
+            Photo? photoToEdit = _myDb.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
 
             if (photoToEdit == null)
             {
@@ -125,27 +124,71 @@ namespace net_il_mio_fotoalbum.Controllers
             }
             else
             {
-                return View("Update", photoToEdit);
+                List<Category> dbCategoriesList = _myDb.Categories.ToList();
+
+                List<SelectListItem> selectListItems = new List<SelectListItem>();
+
+                foreach(Category category in dbCategoriesList)
+                {
+                    selectListItems.Add(new SelectListItem { Value = category.Id.ToString(), Text = category.Title, Selected = photoToEdit.Categories.Any(categoryAssociated => categoryAssociated.Id == category.Id) });
+                }
+
+                PhotoFormModel model = new PhotoFormModel { Photo = photoToEdit, Categories = selectListItems };
+
+                return View("Update", model);
             }
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(int id, Photo ModifiedPhoto)
+        public IActionResult Update(int id, PhotoFormModel data)
         {
             if (!ModelState.IsValid)
             {
-                return View("Update", ModifiedPhoto);
+                List<Category> dbCategoriesList = _myDb.Categories.ToList();
+
+                List<SelectListItem> selectListItems = new List<SelectListItem>();
+
+                foreach (Category category in dbCategoriesList)
+                {
+                    selectListItems.Add(new SelectListItem { Value = category.Id.ToString(), Text = category.Title});
+                }
+
+                data.Categories = selectListItems;
+
+                return View("Update", data);
             }
 
 
-            Photo photoToUpdate = _myDb.Photos.Where(photo => photo.Id == id).FirstOrDefault();
+            Photo? photoToUpdate = _myDb.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
 
             if (photoToUpdate != null)
             {
-                photoToUpdate.Title = ModifiedPhoto.Title;
-                photoToUpdate.Description = ModifiedPhoto.Description;
-                photoToUpdate.PathImage = ModifiedPhoto.PathImage;
+
+                if(photoToUpdate.Categories != null)
+                {
+                    photoToUpdate.Categories.Clear();
+                }
+
+                photoToUpdate.Title = data.Photo.Title;
+                photoToUpdate.Description = data.Photo.Description;
+                photoToUpdate.PathImage = data.Photo.PathImage;
+
+                if(data.SelectedCategoriesId != null)
+                {
+                    foreach(string categorySelectedId in data.SelectedCategoriesId)
+                    {
+                        int intCategoryId = int.Parse(categorySelectedId);
+
+                        Category? categoryInDb = _myDb.Categories.Where(category => category.Id == intCategoryId).FirstOrDefault();
+
+                        if(categoryInDb != null)
+                        {
+                            photoToUpdate.Categories.Add(categoryInDb);
+                        }
+                    }
+                }
 
                 _myDb.SaveChanges();
 
@@ -161,7 +204,6 @@ namespace net_il_mio_fotoalbum.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-
 
             Photo? photoToDelete = _myDb.Photos.Where(photo => photo.Id == id).FirstOrDefault();
 
