@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using net_il_mio_fotoalbum.Database;
 using net_il_mio_fotoalbum.Models;
 
@@ -32,7 +34,7 @@ namespace net_il_mio_fotoalbum.Controllers
         public IActionResult Details(int id)
         {
 
-            Photo? foundedPhoto = _myDb.Photos.Where(photo => photo.Id == id).FirstOrDefault();
+            Photo? foundedPhoto = _myDb.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
 
             if (foundedPhoto == null)
             {
@@ -48,22 +50,62 @@ namespace net_il_mio_fotoalbum.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View("Create");
+            List<SelectListItem> AllCategorySelectList = new List<SelectListItem>();
+
+            List<Category> databaseAllCategory = _myDb.Categories.ToList();
+
+            foreach (Category category in databaseAllCategory)
+            {
+                AllCategorySelectList.Add(new SelectListItem { Text = category.Title, Value = category.Id.ToString() });
+            }
+
+            PhotoFormModel model = new PhotoFormModel { Photo = new Photo(), Categories = AllCategorySelectList };
+
+            return View("Create", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Photo newPhoto)
+        public IActionResult Create(PhotoFormModel data)
         {
             if (!ModelState.IsValid)
             {
-                return View("Create", newPhoto);
+                List<SelectListItem> allCategoriesSelectList = new List<SelectListItem>();
+                List<Category> databaseAllCategories = _myDb.Categories.ToList();
+
+                foreach (Category category in databaseAllCategories)
+                {
+                    allCategoriesSelectList.Add(
+                        new SelectListItem
+                        {
+                            Text = category.Title,
+                            Value = category.Id.ToString()
+                        });
+                }
+
+                data.Categories = allCategoriesSelectList;
+
+                return View("Create", data);
             }
 
+            data.Photo.Categories = new List<Category>();
 
+            if (data.SelectedCategoriesId != null)
+            {
+                foreach (string categorySelectedId in data.SelectedCategoriesId)
+                {
+                    int intCategorySelectedId = int.Parse(categorySelectedId);
 
-            _myDb.Photos.Add(newPhoto);
+                    Category? categoryInDb = _myDb.Categories.Where(category => category.Id == intCategorySelectedId).FirstOrDefault();
 
+                    if (categoryInDb != null)
+                    {
+                        data.Photo.Categories.Add(categoryInDb);
+                    }
+                }
+            }
+
+            _myDb.Photos.Add(data.Photo);
             _myDb.SaveChanges();
 
             return RedirectToAction("Index");

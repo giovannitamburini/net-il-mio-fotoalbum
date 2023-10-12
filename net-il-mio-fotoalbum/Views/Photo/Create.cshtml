@@ -2,7 +2,8 @@
     Layout = "Admin/_AdminLayout";
 }
 
-@model Photo
+@* @model Photo *@
+@model PhotoFormModel
 
 <div class="container py-5">
     <div class="row d-flex justify-content-center">
@@ -18,18 +19,28 @@
 
                 <div class="mb-3">
                     <strong>Titolo:</strong>
-                    <input type="text" class="form-control" asp-for="Title">
-                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="Photo.Title">
+                    <span asp-validation-for="Photo.Title" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <strong>Descrizione:</strong>
-                    <input type="text" class="form-control" asp-for="Description">
-                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="Photo.Description">
+                    <span asp-validation-for="Photo.Description" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <strong>Path immagine:</strong>
-                    <input type="text" class="form-control" asp-for="PathImage">
-                    <span asp-validation-for="PathImage" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="Photo.PathImage">
+                    <span asp-validation-for="Photo.PathImage" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <strong>Seleziona le categorie:</strong>
+                    <select asp-for="SelectedCategoriesId"
+                            multiple="multiple"
+                            size="3"
+                            class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                            asp-items="@Model.Categories">
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Crea nuova foto</button>

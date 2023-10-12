@@ -18,13 +18,33 @@
             </div>
 
             @* titolo *@
-            <div class="pt-4 pb-2">
+            <div class="py-4">
                 <span><strong>Titolo: </strong>@Model.Title</span>
             </div>
 
             @* descrizione *@
-            <div>
+            <div class="pb-2">
                 <p><strong>Descrizione: </strong>@Model.Description</p>
+            </div>
+
+            @* categorie *@
+            <div>
+                <strong>Categorie:</strong>
+
+                @if(Model.Categories != null && Model.Categories.Count > 0)
+                {
+                    <ul>
+                        @foreach(Category category in Model.Categories)
+                        {
+                            <li>@category.Title</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>Nessuna categoria associata</span>
+                }
+
             </div>
 
         </div>
