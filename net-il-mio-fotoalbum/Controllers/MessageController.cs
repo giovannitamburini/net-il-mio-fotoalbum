@@ -16,16 +16,9 @@ namespace net_il_mio_fotoalbum.Controllers
 
         public IActionResult Index()
         {
-            List<Message>? messages = _MyDb.Messages.ToList();
+            List<Message> messages = _MyDb.Messages.ToList();
 
-            if(messages == null || messages.Count == 0)
-            {
-                return NotFound("Mi dispiace ma non sono stati trovati messaggi da mostrare");
-            }
-            else
-            {
-                return View("Index", messages);
-            }
+            return View("Index", messages);
         }
     }
 }

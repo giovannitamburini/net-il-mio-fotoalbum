@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "Admin/_AdminLayout";
+}
+
+@model List<Message>
+
+@if (Model.Count() == 0)
+{
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="py-5"><strong>Non risultano messaggi da mostrare</strong></div>
+
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <h1 class="py-5 text-uppercase">Lista dei messaggi ricevuti</h1>
+
+                <table class="table table-light table-hover table-bordered caption-top">
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Email Utente</th>
+                            <th scope="col">Messaggio</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (Message message in Model)
+                        {
+
+                            <tr>
+                                <th scope="row">@message.Id</th>
+
+                                <td>@message.Mail</td>
+
+                                <td>@message.MessageText</td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
