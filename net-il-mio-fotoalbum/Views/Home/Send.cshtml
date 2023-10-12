@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-12">
+
+            <form id="messageForm">
+
+                <div class="mb-3">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="Inserisci la tua email"><br>
+                </div>
+
+                <div class="mb-3">
+                    <label for="message">Messaggio:</label>
+                    <textarea id="message" name="message" rows="9" required placeholder="Inserisci un messaggio"></textarea><br>
+                </div>
+
+                <button type="submit" id="submitButton" class="btn btn-primary">Invia Messaggio</button>
+            </form>
+
+
+            <div id="sendingRight" class="d-none text-success text-uppercase">Messaggio inviato con successo</div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        document.getElementById("messageForm").addEventListener('submit', sendMessage);
+
+        function sendMessage() {
+
+            // salvo in una variabile il valore dell'email
+            let email = document.getElementById("email").value;
+            // salvo in una variabile il valore del messaggio
+            let message = document.getElementById("message").value;
+
+            // Crea un oggetto con i dati da inviare
+            let data = {
+                Mail: email,
+                MessageText: message
+            };
+
+            // Eseguo la chiamata Axios POST
+            axios.post("/api/MessageAPI/CreateMessage", data)
+                .then(function (response) {
+
+                    // pulisco il form
+                    document.getElementById("messageForm").reset();
+
+                })
+                .catch(function (error) {
+
+                    // Gestione dell'errore
+                    console.error("Si è verificato un errore durante la richiesta:", error);
+                });
+        }
+
+    </script>
+}

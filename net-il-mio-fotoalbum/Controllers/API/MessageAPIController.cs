@@ -26,7 +26,7 @@ namespace net_il_mio_fotoalbum.Controllers.API
 
                 _MyDb.SaveChanges();
 
-                return Ok("Messaggio inviato con successo");
+                return Ok();
             }
             catch(Exception ex)
             {

@@ -18,6 +18,11 @@ namespace net_il_mio_fotoalbum.Controllers
             return View();
         }
 
+        public IActionResult Send()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
