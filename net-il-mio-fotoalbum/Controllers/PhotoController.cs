@@ -15,6 +15,10 @@ namespace net_il_mio_fotoalbum.Controllers
             this._myDb = myDb;
         }
 
+        // ---------------------------------------------------------
+        // INDEX
+        // ---------------------------------------------------------
+
         public IActionResult Index()
         {
             try
@@ -31,6 +35,41 @@ namespace net_il_mio_fotoalbum.Controllers
             }
         }
 
+        // ---------------------------------------------------------
+        // SEARCH
+        // ---------------------------------------------------------
+
+        [HttpGet]
+        public IActionResult Search(string searchString)
+        {
+            try
+            {
+                List<Photo> photos;
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    // query per trovare le foto che corrispondono alla stringa di ricerca
+                    photos = _myDb.Photos.Where(p => p.Title.Contains(searchString)).ToList();
+                }
+                else
+                {
+                    // Se il campo di ricerca è vuoto, ottieni tutte le foto
+                    photos = _myDb.Photos.ToList();
+                }
+
+                return View("Index", photos);
+            }
+            catch (Exception ex)
+            {
+                return NotFound($"La lista delle foto è vuota \n" +
+                    $"Messaggio d'errore: {ex.Message}");
+            }
+        }
+
+        // ---------------------------------------------------------
+        // DETAILS
+        // ---------------------------------------------------------
+
         public IActionResult Details(int id)
         {
 
@@ -46,6 +85,11 @@ namespace net_il_mio_fotoalbum.Controllers
             }
 
         }
+
+
+        // ---------------------------------------------------------
+        // CREATE
+        // ---------------------------------------------------------
 
         [HttpGet]
         public IActionResult Create()
@@ -111,6 +155,10 @@ namespace net_il_mio_fotoalbum.Controllers
             return RedirectToAction("Index");
         }
 
+
+        // ---------------------------------------------------------
+        // UPDATE
+        // ---------------------------------------------------------
 
         [HttpGet]
         public IActionResult Update(int id)
@@ -199,6 +247,11 @@ namespace net_il_mio_fotoalbum.Controllers
                 return NotFound("Mi dispiace, la foto da aggiornare non è stata trovata");
             }
         }
+
+
+        // ---------------------------------------------------------
+        // DELETE
+        // ---------------------------------------------------------
 
         [HttpPost]
         [ValidateAntiForgeryToken]

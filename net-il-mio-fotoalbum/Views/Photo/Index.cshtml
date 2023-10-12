@@ -18,14 +18,22 @@ else
 
                 <h1 class="py-5 text-uppercase">Lista delle foto</h1>
 
+                @using (Html.BeginForm("Search", "Photo", FormMethod.Get))
+                {
+                    <div class="form-group pb-4">
+                        <input type="text" name="searchString" placeholder="Filtra foto per nome" class="form-control mb-2" />
+                        <input type="submit" value="Filtra" class="btn btn-primary" />
+                    </div>
+                }
+
                 <table class="table table-light table-hover table-bordered caption-top">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Immagine</th>
+                            <th scope="col">Titolo</th>
+                            <th scope="col">Descrizione</th>
+                            <th scope="col">Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
