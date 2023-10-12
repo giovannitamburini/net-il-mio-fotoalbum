@@ -12,8 +12,7 @@ namespace net_il_mio_fotoalbum
             // modificato la riga per l'autenticazione/autorizzazione
             builder.Services.AddDbContext<PhotoPortfolioContext>();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-.AddEntityFrameworkStores<PhotoPortfolioContext>();
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<PhotoPortfolioContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
