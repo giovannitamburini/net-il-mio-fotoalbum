@@ -1,9 +1,112 @@
 ﻿@{
     Layout = "_Layout";
-    ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-12">
+
+            <h1 class="py-5">Lista delle foto</h1>
+
+            @* barra di ricerca *@
+            <div>
+                <input type="text" id="js-searchbar" class="form-control" placeholder="cerca per titolo">
+            </div>
+
+            @* spinner di caricamento *@
+            <div id="loading-spinner" class="row py-5">
+                <div class="col-12">
+                    <div class="spinner-border text-warning" role="status">
+                    </div>
+                    <span class="visually-hidden">Sto cercando le foto...</span>
+                </div>
+            </div>
+
+            @* container per il caso in cui non ho foto da mostrare oppure non ne ottengo tramite la query di ricerca *@
+            <div id="row-no-photos" class="row d-none py-5">
+                <div class="col-12">
+                    Nessuna Foto trovata
+                </div>
+            </div>
+
+            @* container per il caso in cui abbia foto da mostrare *@
+            <div id="list-of-photos" class="row d-none py-5">
+            </div>
+
+        </div>
+
+    </div>
 </div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        loadPhotos();
+
+        // aggiungo un eventListener
+        document.getElementById("js-searchbar").addEventListener('keyup', searchPhotos);
+
+        function searchPhotos() {
+
+            let searchString = document.getElementById("js-searchbar").value;
+
+            loadPhotos(searchString);
+        }
+
+        function loadPhotos(searchParam) {
+
+            axios.get('/api/PhotoAPI/SearchPhotoByStringInTheTitle', { params: { stringToSearch: searchParam } }).then((res) => {
+
+                // console.log(res);
+                console.log(res.data);
+
+                let loadingSpinnerElement = document.getElementById("loading-spinner");
+                let divNoPhotos = document.getElementById("row-no-photos");
+                let listOfPhotosElement = document.getElementById("list-of-photos");
+
+                // caso in cui ricevo una lista vuota
+                if (res.data.length == 0) {
+
+                    // rimuovo lo spinner
+                    loadingSpinnerElement.classList.add("d-none");
+                    divNoPhotos.classList.remove("d-none");
+                }
+                else {
+
+                    loadingSpinnerElement.classList.add("d-none");
+                    listOfPhotosElement.classList.remove("d-none");
+
+                    // svuoto il contenitore in modo da non avere duplicati con le chiamate precedenti
+                    listOfPhotosElement.innerHTML = "";
+
+                    res.data.forEach(photo => {
+
+                        console.log(photo);
+
+                        listOfPhotosElement.innerHTML +=
+                            `
+                                    <div class="col-12 col-md-4 p-2">
+                                        <div class="card post h-100">
+                                             <img src="${photo.pathImage}" class="card-img-top" alt="${photo.title}">
+                                             <div class="card-body">
+                                                  <h5 class="card-title">${photo.title}</h5>
+                                                  <p class="card-text">${photo.description}</p>
+                                             </div>
+                                        </div>
+                                    </div>
+                                    `
+                    });
+
+                }
+            }).catch(function (error) {
+                console.error('Errore durante la richiesta GET:', error);
+            });
+        }
+
+    </script>
+}
