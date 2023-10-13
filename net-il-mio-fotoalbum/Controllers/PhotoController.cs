@@ -8,7 +8,7 @@ using net_il_mio_fotoalbum.Models;
 namespace net_il_mio_fotoalbum.Controllers
 {
 
-    [Authorize]
+    [Authorize(Roles = "ADMIN")]
     public class PhotoController : Controller
     {
         private PhotoPortfolioContext _myDb;
@@ -22,7 +22,6 @@ namespace net_il_mio_fotoalbum.Controllers
         // INDEX
         // ---------------------------------------------------------
 
-        [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
         {
             try
@@ -43,7 +42,6 @@ namespace net_il_mio_fotoalbum.Controllers
         // SEARCH
         // ---------------------------------------------------------
 
-        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult Search(string searchString)
         {
@@ -75,7 +73,6 @@ namespace net_il_mio_fotoalbum.Controllers
         // DETAILS
         // ---------------------------------------------------------
 
-        [Authorize(Roles = "ADMIN")]
         public IActionResult Details(int id)
         {
 
@@ -97,7 +94,6 @@ namespace net_il_mio_fotoalbum.Controllers
         // CREATE
         // ---------------------------------------------------------
 
-        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -115,7 +111,6 @@ namespace net_il_mio_fotoalbum.Controllers
             return View("Create", model);
         }
 
-        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhotoFormModel data)
@@ -171,7 +166,6 @@ namespace net_il_mio_fotoalbum.Controllers
         // UPDATE
         // ---------------------------------------------------------
 
-        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -200,7 +194,6 @@ namespace net_il_mio_fotoalbum.Controllers
 
         }
 
-        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(int id, PhotoFormModel data)
@@ -274,7 +267,6 @@ namespace net_il_mio_fotoalbum.Controllers
         // DELETE
         // ---------------------------------------------------------
 
-        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)

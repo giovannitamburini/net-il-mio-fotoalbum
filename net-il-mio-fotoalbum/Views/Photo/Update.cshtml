@@ -13,7 +13,7 @@
                 <h1 class="text-capitalize my-3">Pagina di modifica foto</h1>
             </div>
 
-            <form asp-controller="Photo" asp-action="Update" method="post">
+            <form asp-controller="Photo" asp-action="Update" enctype="multipart/form-data" method="post">
 
                 @Html.AntiForgeryToken()
 

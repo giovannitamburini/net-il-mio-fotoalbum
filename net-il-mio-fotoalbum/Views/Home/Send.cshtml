@@ -25,11 +25,11 @@
                     <textarea id="message" class="w-100" name="message" rows="9" required placeholder="Inserisci un messaggio"></textarea><br>
                 </div>
 
-                <button type="submit" id="submitButton" class="btn btn-primary">Invia Messaggio</button>
+                <button type="button" id="submitButton" class="btn btn-primary">Invia Messaggio</button>
             </form>
 
 
-            <div id="sendingRight" class="d-none text-success text-uppercase">Messaggio inviato con successo</div>
+            <div id="sendingRight" class="d-none py-3 text-success text-uppercase">Messaggio inviato con successo</div>
 
         </div>
     </div>
@@ -40,7 +40,8 @@
 
     <script type="text/javascript">
 
-        document.getElementById("messageForm").addEventListener('submit', sendMessage);
+        document.getElementById("messageForm").addEventListener('click', sendMessage);
+        
 
         function sendMessage() {
 
@@ -62,12 +63,29 @@
                     // pulisco il form
                     document.getElementById("messageForm").reset();
 
+                    // Mostra il messaggio di successo
+                    showSuccessMessage();
+
                 })
                 .catch(function (error) {
 
                     // Gestione dell'errore
                     console.error("Si è verificato un errore durante la richiesta:", error);
                 });
+        }
+
+        function showSuccessMessage() {
+
+            const successMessage = document.getElementById("sendingRight");
+
+            successMessage.classList.remove("d-none");
+
+            // Nascondi il messaggio dopo 5 secondi
+            setTimeout(function () {
+
+                successMessage.classList.add("d-none");
+
+            }, 5000); // 5000 millisecondi = 5 secondi
         }
 
     </script>
