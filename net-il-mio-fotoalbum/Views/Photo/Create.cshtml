@@ -10,7 +10,7 @@
         <div class="col-9">
 
             <div>
-                <h1 class="text-capitalize my-3">Pagina creazione nuova foto</h1>
+                <h1 class="text-capitalize my-5">Pagina creazione nuova foto</h1>
             </div>
 
             <form asp-controller="Photo" asp-action="Create" enctype="multipart/form-data" method="post">
@@ -44,10 +44,16 @@
                     <strong>Seleziona le categorie:</strong>
                     <select asp-for="SelectedCategoriesId"
                             multiple="multiple"
-                            size="3"
+                            size="5"
                             class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
                             asp-items="@Model.Categories">
                     </select>
+                </div>
+
+                <div class="mb-3">
+                    <strong>Seleziona o lascia selezionata la casella per rendere visibile la foto agli utenti: </strong>
+                    <input type="checkbox" asp-for="Photo.IsVisible">
+                    <span asp-validation-for="Photo.IsVisible" class="text-danger"></span>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Crea nuova foto</button>

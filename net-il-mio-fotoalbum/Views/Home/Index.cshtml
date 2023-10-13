@@ -88,6 +88,8 @@
 
                         console.log(photo);
 
+                        // appendo nell'html solo se la proprietà IsVisible = true
+                        if (photo.isVisible) {
                         listOfPhotosElement.innerHTML +=
                             `
                                     <div class="col-12 col-md-4 p-2">
@@ -99,7 +101,8 @@
                                              </div>
                                         </div>
                                     </div>
-                                    `
+                                    `;
+                        }
                     });
 
                 }

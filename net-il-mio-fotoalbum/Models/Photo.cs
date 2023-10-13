@@ -19,7 +19,6 @@ namespace net_il_mio_fotoalbum.Models
         public string Description { get; set; }
 
         [MaxLength(300)]
-        [Required(ErrorMessage ="Il campo del path dell'immagine è obbligatorio")]
         [StringLength(300, ErrorMessage ="Il path dell'immagine non può superare i 300 caratteri")]
         // custom validation
         [ValidFormatImage]

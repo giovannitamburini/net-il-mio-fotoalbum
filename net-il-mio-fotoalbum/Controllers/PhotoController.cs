@@ -232,6 +232,7 @@ namespace net_il_mio_fotoalbum.Controllers
                 photoToUpdate.Title = data.Photo.Title;
                 photoToUpdate.Description = data.Photo.Description;
                 photoToUpdate.PathImage = data.Photo.PathImage;
+                photoToUpdate.IsVisible = data.Photo.IsVisible;
 
                 if(data.SelectedCategoriesId != null)
                 {

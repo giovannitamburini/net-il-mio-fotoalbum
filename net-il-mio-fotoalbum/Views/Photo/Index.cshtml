@@ -48,10 +48,7 @@ else
                     <tbody>
 
                         @foreach (Photo photo in Model)
-                        {
-                            @* controllo che la proprietà della visibilità sia impostata su true *@
-                            @if (photo.IsVisible)
-                            {
+                        {   
                                 <tr>
                                     <th scope="row">@photo.Id</th>
                                     <td><img src="@photo.ImageSrc" width="100" /></td>
@@ -102,7 +99,7 @@ else
                                     </td>
 
                                 </tr>
-                            }
+                            
                         }
 
                     </tbody>
