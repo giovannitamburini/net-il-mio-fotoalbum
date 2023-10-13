@@ -12,13 +12,15 @@
             <form id="messageForm">
 
                 <div class="mb-3">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="Inserisci la tua email"><br>
+                    @* <label for="email">Email:</label> *@
+                    <strong>Email</strong>
+                    <input type="email" id="email" class="w-100" name="email" required placeholder="Inserisci la tua email"><br>
                 </div>
 
                 <div class="mb-3">
-                    <label for="message">Messaggio:</label>
-                    <textarea id="message" name="message" rows="9" required placeholder="Inserisci un messaggio"></textarea><br>
+                    @* <label for="message">Messaggio:</label> *@
+                    <strong>Messaggio:</strong>
+                    <textarea id="message" class="w-100" name="message" rows="9" required placeholder="Inserisci un messaggio"></textarea><br>
                 </div>
 
                 <button type="submit" id="submitButton" class="btn btn-primary">Invia Messaggio</button>
