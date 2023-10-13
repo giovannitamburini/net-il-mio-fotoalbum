@@ -5,10 +5,10 @@
             <img src="~/img/portfolio.png" alt="portfolio" width="55" class="d-inline-block align-text-top">
         </a>
 
-        <a class="navbar-brand" href="@Url.Action("Index", "Home")">PORTFOLIO</a>
+        @* <a class="navbar-brand" href="@Url.Action("Index", "Home")">PORTFOLIO</a> *@
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -28,6 +28,9 @@
                     <a class="nav-link" href="@Url.Action("Send", "Home")">Contattaci</a>
                 </li>
             </ul>
+
+            @* aggiungo la partial del login generato dal framework *@
+            <partial name="_LoginPartial" />
         </div>
     </div>
 </nav>

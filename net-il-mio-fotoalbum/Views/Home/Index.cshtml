@@ -9,7 +9,13 @@
 
         <div class="col-12">
 
-            <h1 class="py-5">Lista delle foto</h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="~/img/portfolio.png" alt="Bootstrap" width="150">
+                <h1 class="text-uppercase">Portfolio</h1>
+
+            </div>
+
+            <h2 class="py-3">Lista delle foto</h2>
 
             @* barra di ricerca *@
             <div>
@@ -97,41 +103,41 @@
 
                             if (photo.categories != null && photo.categories.length > 0) {
                                 categoriesHtml = `
-                                     <div>
-                                        <strong>Categorie:</strong>
-                                        <ul>
-                                           `;
+                                             <div>
+                                                <strong>Categorie:</strong>
+                                                <ul>
+                                                   `;
 
                                 photo.categories.forEach(category => {
                                     categoriesHtml += `<li>${category.title}</li>`;
                                 });
 
                                 categoriesHtml += `
-                                        </ul>
-                                    </div>
-                                    `;
+                                                </ul>
+                                            </div>
+                                            `;
                             } else {
 
                                 categoriesHtml = '<span>Nessuna categoria associata</span>';
                             }
 
 
-                        listOfPhotosElement.innerHTML +=
-                            `
-                                    <div class="col-12 col-md-4 p-2">
-                                        <div class="card post h-100">
-                                             <img src="${photo.pathImage}" class="card-img-top" alt="${photo.title}">
-                                             <div class="card-body">
-                                                  <h5 class="card-title pb-3">${photo.title}</h5>
-                                                  <p class="card-text"><strong>Descrizione: </strong>${photo.description}</p>
+                            listOfPhotosElement.innerHTML +=
+                                `
+                                            <div class="col-12 col-md-4 p-2">
+                                                <div class="card post h-100">
+                                                     <img src="${photo.pathImage}" class="card-img-top" alt="${photo.title}">
+                                                     <div class="card-body">
+                                                          <h5 class="card-title pb-3">${photo.title}</h5>
+                                                          <p class="card-text"><strong>Descrizione: </strong>${photo.description}</p>
 
 
-                                                  ${categoriesHtml}
+                                                          ${categoriesHtml}
 
-                                             </div>
-                                        </div>
-                                    </div>
-                                    `;
+                                                     </div>
+                                                </div>
+                                            </div>
+                                            `;
                         }
                     });
 

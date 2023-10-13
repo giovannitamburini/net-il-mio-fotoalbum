@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using net_il_mio_fotoalbum.Models;
 using System.Diagnostics;
 
 namespace net_il_mio_fotoalbum.Controllers
 {
+
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -13,11 +16,13 @@ namespace net_il_mio_fotoalbum.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "USER, ADMIN")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "USER, ADMIN")]
         public IActionResult Send()
         {
             return View();

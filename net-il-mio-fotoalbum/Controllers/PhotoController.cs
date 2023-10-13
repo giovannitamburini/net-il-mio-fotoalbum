@@ -22,6 +22,7 @@ namespace net_il_mio_fotoalbum.Controllers
         // INDEX
         // ---------------------------------------------------------
 
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
         {
             try
@@ -42,6 +43,7 @@ namespace net_il_mio_fotoalbum.Controllers
         // SEARCH
         // ---------------------------------------------------------
 
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult Search(string searchString)
         {
@@ -73,6 +75,7 @@ namespace net_il_mio_fotoalbum.Controllers
         // DETAILS
         // ---------------------------------------------------------
 
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Details(int id)
         {
 
@@ -185,7 +188,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
                 List<SelectListItem> selectListItems = new List<SelectListItem>();
 
-                foreach(Category category in dbCategoriesList)
+                foreach (Category category in dbCategoriesList)
                 {
                     selectListItems.Add(new SelectListItem { Value = category.Id.ToString(), Text = category.Title, Selected = photoToEdit.Categories.Any(categoryAssociated => categoryAssociated.Id == category.Id) });
                 }
@@ -210,7 +213,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
                 foreach (Category category in dbCategoriesList)
                 {
-                    selectListItems.Add(new SelectListItem { Value = category.Id.ToString(), Text = category.Title});
+                    selectListItems.Add(new SelectListItem { Value = category.Id.ToString(), Text = category.Title });
                 }
 
                 data.Categories = selectListItems;
@@ -224,7 +227,7 @@ namespace net_il_mio_fotoalbum.Controllers
             if (photoToUpdate != null)
             {
 
-                if(photoToUpdate.Categories != null)
+                if (photoToUpdate.Categories != null)
                 {
                     photoToUpdate.Categories.Clear();
                 }
@@ -234,15 +237,15 @@ namespace net_il_mio_fotoalbum.Controllers
                 photoToUpdate.PathImage = data.Photo.PathImage;
                 photoToUpdate.IsVisible = data.Photo.IsVisible;
 
-                if(data.SelectedCategoriesId != null)
+                if (data.SelectedCategoriesId != null)
                 {
-                    foreach(string categorySelectedId in data.SelectedCategoriesId)
+                    foreach (string categorySelectedId in data.SelectedCategoriesId)
                     {
                         int intCategoryId = int.Parse(categorySelectedId);
 
                         Category? categoryInDb = _myDb.Categories.Where(category => category.Id == intCategoryId).FirstOrDefault();
 
-                        if(categoryInDb != null)
+                        if (categoryInDb != null)
                         {
                             photoToUpdate.Categories.Add(categoryInDb);
                         }
@@ -299,7 +302,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
         private void SetImageFile(PhotoFormModel formData)
         {
-            if(formData.ImageFormFile == null)
+            if (formData.ImageFormFile == null)
             {
                 return;
             }
