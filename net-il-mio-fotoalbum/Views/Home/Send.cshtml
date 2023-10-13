@@ -63,7 +63,7 @@
                     // pulisco il form
                     document.getElementById("messageForm").reset();
 
-                    // Mostra il messaggio di successo
+                    // messaggio di successo
                     showSuccessMessage();
 
                 })
@@ -74,18 +74,18 @@
                 });
         }
 
+        // funzione per far apparire il messaggio di successo per l'invio del messaggio
         function showSuccessMessage() {
 
             const successMessage = document.getElementById("sendingRight");
 
             successMessage.classList.remove("d-none");
 
-            // Nascondi il messaggio dopo 5 secondi
             setTimeout(function () {
 
                 successMessage.classList.add("d-none");
 
-            }, 5000); // 5000 millisecondi = 5 secondi
+            }, 5000);
         }
 
     </script>
