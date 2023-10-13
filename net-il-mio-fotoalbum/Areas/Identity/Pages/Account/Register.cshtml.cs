@@ -123,6 +123,12 @@ namespace net_il_mio_fotoalbum.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    // --------------------------------------------
+                    // assegnazione del ruolo di USER di default
+                    // --------------------------------------------
+                    await _userManager.AddToRoleAsync(user, "USER");
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
