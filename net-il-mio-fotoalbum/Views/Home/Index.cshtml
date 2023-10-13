@@ -1,5 +1,5 @@
-﻿@{
-    Layout = "_Layout";
+﻿﻿@{
+    Layout = "User/_UserLayout";
 }
 
 
@@ -13,6 +13,7 @@
 
             @* barra di ricerca *@
             <div>
+                <strong>Filtra foto:</strong>
                 <input type="text" id="js-searchbar" class="form-control" placeholder="cerca per titolo">
             </div>
 
@@ -90,14 +91,43 @@
 
                         // appendo nell'html solo se la proprietà IsVisible = true
                         if (photo.isVisible) {
+
+                            // gestisco le categorie
+                            let categoriesHtml = '';
+
+                            if (photo.categories != null && photo.categories.length > 0) {
+                                categoriesHtml = `
+                                     <div>
+                                        <strong>Categorie:</strong>
+                                        <ul>
+                                           `;
+
+                                photo.categories.forEach(category => {
+                                    categoriesHtml += `<li>${category.title}</li>`;
+                                });
+
+                                categoriesHtml += `
+                                        </ul>
+                                    </div>
+                                    `;
+                            } else {
+
+                                categoriesHtml = '<span>Nessuna categoria associata</span>';
+                            }
+
+
                         listOfPhotosElement.innerHTML +=
                             `
                                     <div class="col-12 col-md-4 p-2">
                                         <div class="card post h-100">
                                              <img src="${photo.pathImage}" class="card-img-top" alt="${photo.title}">
                                              <div class="card-body">
-                                                  <h5 class="card-title">${photo.title}</h5>
-                                                  <p class="card-text">${photo.description}</p>
+                                                  <h5 class="card-title pb-3">${photo.title}</h5>
+                                                  <p class="card-text"><strong>Descrizione: </strong>${photo.description}</p>
+
+
+                                                  ${categoriesHtml}
+
                                              </div>
                                         </div>
                                     </div>

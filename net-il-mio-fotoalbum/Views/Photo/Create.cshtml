@@ -10,7 +10,7 @@
         <div class="col-9">
 
             <div>
-                <h1 class="text-capitalize my-5">Pagina creazione nuova foto</h1>
+                <h1 class="text-capitalize pb-5">Pagina creazione nuova foto</h1>
             </div>
 
             <form asp-controller="Photo" asp-action="Create" enctype="multipart/form-data" method="post">
@@ -35,7 +35,7 @@
 
                 @* caricamento file immagine *@
                 <div class="mb-3">
-                    <label asp-for="ImageFormFile">File Immagine:</label>
+                    <strong>File Immagine:</strong>
                     <input type="file" asp-for="ImageFormFile" />
                     <span asp-validation-for="ImageFormFile" class="text-error"></span>
                 </div>
@@ -56,7 +56,7 @@
                     <span asp-validation-for="Photo.IsVisible" class="text-danger"></span>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Crea nuova foto</button>
+                <button type="submit" class="btn btn-success">Crea nuova foto</button>
 
             </form>
 
